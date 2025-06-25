@@ -32,7 +32,7 @@ def extract_features(row):
         hum = stats(eval(row['humidity_data']))
         return ecg + emg + temp + hum
     except Exception as e:
-        print(f"⚠️ Eroare la rândul: {row['label']}")
+        print(f"Eroare la rândul: {row['label']}")
         print(f"Motiv: {e}\n")
         return None  # semnalăm eroare clar
 
@@ -55,11 +55,11 @@ features = pd.DataFrame(feature_list, columns=[
 ])
 y = pd.Series(label_list)
 
-print(f"✅ Mostre valide: {features.shape[0]} / {df.shape[0]}")
+print(f"Mostre valide: {features.shape[0]} / {df.shape[0]}")
 
 # === 6. Împărțire în train/test ===
 if features.shape[0] < 2:
-    print("❌ Prea puține date valide pentru antrenare. Adaugă mai multe mostre în ai_samples.")
+    print("Prea puține date valide pentru antrenare. Adaugă mai multe mostre în ai_samples.")
     exit()
 
 X_train, X_test, y_train, y_test = train_test_split(features, y, test_size=0.2, random_state=42)
@@ -70,8 +70,8 @@ model.fit(X_train, y_train)
 
 # === 8. Evaluare și salvare ===
 y_pred = model.predict(X_test)
-print("\n📊 Raport evaluare:\n")
+print("\nRaport evaluare:\n")
 print(classification_report(y_test, y_pred))
 
 dump(model, "model.pkl")
-print("✅ Model salvat în: model.pkl")
+print("Model salvat în: model.pkl")
